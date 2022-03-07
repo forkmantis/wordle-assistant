@@ -29,6 +29,16 @@ I'll describe each command above, and how they work together:
 
 ## Acceptance Criteria ##
 
-* The dictionary should not contain any proper nouns
-* Filtering should accumulate, or be additive over successive guesses
-* Upon each filtering, a list of all possible answers should be printed to stdout
+### MVP ###
+
+* The dictionary should contain 5 letter English words, but not proper nouns
+* The assistant should maintain the game state for multiple turns until the user has solved the wordle or run out of guesses
+* The assistant should print the green, yellow and black letters it knows about at the beginning of each round
+* The assistant should ask for newly discovered green, yellow or black letters
+* Each known green letter should also include information on its position
+* Each known yellow letter should include information on the positions for which it is not used
+* After the new information has been supplied by the user, the assistant should filter the dictionary and show all the potential solutions
+
+### Enhancements ###
+
+* The user can edit previously added letters in the event they made a mistake
