@@ -21,7 +21,9 @@ puts "Welcome to the wordle assistant!"
 
 # Game loop will ask the user what word they guessed, and for the for each letter, whether it is in the word and in the correct position, in the word but in a different position, or not in the word at all.
 
-while true
+finished = false  # This will be set to true when the user solves the puzzle or runs out of guesses.
+
+while !finished
   game_state = GameState.new
   puts "What 5 letter word did you guess?"
   word_to_guess = gets.chomp.downcase
@@ -50,4 +52,7 @@ while true
 
   puts "Here are the words that match your clues:"
   puts words.select { |word| word.downcase.include?(word_to_guess) }
+
+  puts "Do you want to guess another word? (y/n)"
+  finished = gets.chomp.downcase == 'n'
 end  # end of while true 
