@@ -33,12 +33,13 @@ while !finished
 
   # for each character of feedback, update the game state with the corresponding character in the word_to_guess
   for i in 0..4
-    if feedback[i] == 'x'
+    case feedback[i]
+    when 'x'
       game_state.letters_not_in_word << word_to_guess[i]
-    elsif feedback[i] == 'g'
+    when 'g'
       game_state.letters_in_correct_position << {letter: word_to_guess[i], position: i}
-    elsif feedback[i] == 'y'
-      game_state.letters_in_wrong_position << {letter: word_to_guess[i], positions: [i]}
+    when 'y'
+      game_state.letters_in_wrong_position << {letter: word_to_guess[i], position: i}
     end
   end
 
