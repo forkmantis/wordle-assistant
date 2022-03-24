@@ -22,9 +22,9 @@ puts "Welcome to the wordle assistant!"
 # Game loop will ask the user what word they guessed, and for the for each letter, whether it is in the word and in the correct position, in the word but in a different position, or not in the word at all.
 
 finished = false  # This will be set to true when the user solves the puzzle or runs out of guesses.
+game_state = GameState.new
 
 while !finished
-  game_state = GameState.new
   puts "What 5 letter word did you guess?"
   word_to_guess = gets.chomp.downcase
   puts "What feedback did you get ('x' for letters not in word, 'g' for letters in the right position, 'y' for letters in the wrong position)?"
