@@ -23,25 +23,31 @@ puts "Welcome to the wordle assistant!"
 
 while true
   game_state = GameState.new
-  puts "Please enter a word to guess:"
+  puts "What 5 letter word did you guess?"
   word_to_guess = gets.chomp.downcase
-  puts "Please enter the feedback for each letter in the word:"
-  word_to_guess.split("").each do |letter|
-    puts "Letter: #{letter}"
-    puts "Is it in the word? (y/n)"
-    is_in_word = gets.chomp.downcase
-    puts "Is it in the correct position? (y/n)"
-    is_in_correct_position = gets.chomp.downcase
-    if is_in_word == "y"
-      if is_in_correct_position == "y"
-        game_state[:letters_in_correct_position] << {letter: letter, position: 0}
-      else
-        game_state[:letters_in_wrong_position] << {letter: letter, position: 0}
-      end
-    else
-      game_state[:letters_not_in_word] << letter
+  puts "What feedback did you get ('x' for letters not in word, 'g' for letters in the right position, 'y' for letters in the wrong position)?"
+  puts "Example feedback: xgxyy"
+  feedback = gets.chomp.downcase
+
+  # for each character of feedback, update the game state with the corresponding character in the word_to_guess
+  for i in 0..4
+    if feedback[i] == 'x'
+      game_state.letters_not_in_word << word_to_guess[i]
+    elsif feedback[i] == 'g'
+      game_state.letters_in_correct_position << {letter: word_to_guess[i], position: i}
+    elsif feedback[i] == 'y'
+      game_state.letters_in_wrong_position << {letter: word_to_guess[i], positions: [i]}
     end
   end
+
+  # print GameState
+  puts "Game State:"
+  puts "Words Guessed: #{game_state.words_guessed}"
+  puts "Letters in correct position: #{game_state.letters_in_correct_position}"
+  puts "Letters in wrong position: #{game_state.letters_in_wrong_position}"
+  puts "Letters not in word: #{game_state.letters_not_in_word}"
+
+
   puts "Here are the words that match your clues:"
   puts words.select { |word| word.downcase.include?(word_to_guess) }
 end  # end of while true 
