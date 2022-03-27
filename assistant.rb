@@ -35,7 +35,10 @@ while !finished
   for i in 0..4
     case feedback[i]
     when 'x'
-      game_state.letters_not_in_word << word_guessed[i]
+      # add the letter to the letters_not_in_word array if it is not already there
+      if !game_state.letters_not_in_word.include?(word_guessed[i])
+        game_state.letters_not_in_word << word_guessed[i]
+      end
     when 'g'
       game_state.letters_in_correct_position << {letter: word_guessed[i], position: i}
     when 'y'
