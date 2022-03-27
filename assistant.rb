@@ -50,6 +50,11 @@ while !finished
     end
   end
 
+  # remove any letter that appears in letters_in_correct_position or letters_in_wrong_position from letters_not_in_word
+  game_state.letters_not_in_word.delete_if do |letter|
+    game_state.letters_in_correct_position.values.include?(letter) || game_state.letters_in_wrong_position.values.flatten.include?(letter)
+  end
+
   # print GameState
   puts "Game State:"
   puts "Words Guessed: #{game_state.words_guessed}"
