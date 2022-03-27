@@ -58,12 +58,15 @@ while !finished
   puts "Letters not in word: #{game_state.letters_not_in_word}"
 
 
-  puts "Here are the words that match your clues:"
   # filter the dictionary to exclude words containing letters not in the word_guessed
-  filtered_words = words.select { |word| word[/[^#{game_state.letters_not_in_word.join}]/] }
-  # filter filtered_words to only include words that contain letters in the correct position
-  filtered_words = filtered_words.select { |word| word[/#{game_state.letters_in_correct_position.values.join}/] }
+  filter_out_letters = game_state.letters_not_in_word.join
+  puts "Filtering out letters: #{filter_out_letters}"
+  filtered_words = words.select do |word|
+    word[/^[^#{filter_out_letters}]{5}$/] &&
+      word[/#{game_state.letters_in_correct_position.values.join}/]
+  end
 
+  puts "Here are the words that match your clues:"
   filtered_words.each { |word| puts word }
 
   puts "Do you want to guess another word? (y/n)"
