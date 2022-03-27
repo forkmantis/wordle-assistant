@@ -62,13 +62,22 @@ while !finished
   puts "Letters in wrong position: #{game_state.letters_in_wrong_position}"
   puts "Letters not in word: #{game_state.letters_not_in_word}"
 
+  # create a regex from letters_in_wrong_position with a '.' for any empty array, and joining the contents of any non-empty array and wrapping them inside square brackets
+  filter_letters_in_wrong_position = game_state.letters_in_wrong_position.map do |position, letters|
+    if letters.empty?
+      '.'
+    else
+      "[^#{letters.join}]"
+    end
+  end.join
 
   # filter the dictionary to exclude words containing letters not in the word_guessed
   filter_out_letters = game_state.letters_not_in_word.join
   puts "Filtering out letters: #{filter_out_letters}"
   filtered_words = words.select do |word|
     word[/^[^#{filter_out_letters}]{5}$/] &&
-      word[/#{game_state.letters_in_correct_position.values.join}/]
+      word[/#{game_state.letters_in_correct_position.values.join}/] &&
+      word[/#{filter_letters_in_wrong_position}/]
   end
 
   puts "Here are the words that match your clues:"
