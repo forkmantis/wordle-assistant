@@ -40,9 +40,9 @@ while !finished
         game_state.letters_not_in_word << word_guessed[i]
       end
     when 'g'
-      game_state.letters_in_correct_position << {letter: word_guessed[i], position: i}
+      game_state.letters_in_correct_position << {position: i, letter: word_guessed[i]}
     when 'y'
-      game_state.letters_in_wrong_position << {letter: word_guessed[i], position: i}
+      game_state.letters_in_wrong_position << {position: i, letter: word_guessed[i]}
     end
   end
 
