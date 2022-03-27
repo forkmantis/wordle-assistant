@@ -25,10 +25,13 @@ finished = false  # This will be set to true when the user solves the puzzle or 
 game_state = GameState.new
 
 while !finished
-  puts "What 5 letter word did you guess?"
+  puts "What is your guess?"
   word_guessed = gets.chomp.downcase
+  if word_guessed.empty?
+    finished = true
+    break
+  end
   puts "What feedback did you get ('x' for letters not in word, 'g' for letters in the right position, 'y' for letters in the wrong position)?"
-  puts "Example feedback: xgxyy"
   feedback = gets.chomp.downcase
 
   # for each character of feedback, update the game state with the corresponding character in the word_guessed
@@ -75,7 +78,4 @@ while !finished
 
   puts "Here are the words that match your clues:"
   filtered_words.each { |word| puts word }
-
-  puts "Do you want to guess another word? (y/n)"
-  finished = gets.chomp.downcase == 'n'
 end  # end of while true
