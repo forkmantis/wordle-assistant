@@ -11,8 +11,8 @@ class GameState
 
   def initialize
     @words_guessed = []
-    @letters_in_correct_position = []
-    @letters_in_wrong_position = []
+    @letters_in_correct_position = {0 => "", 1 => "", 2 => "", 3 => "", 4 => ""}
+    @letters_in_wrong_position = {0 => [], 1 => [], 2 => [], 3 => [], 4 => []}
     @letters_not_in_word = []
   end
 end
@@ -40,9 +40,13 @@ while !finished
         game_state.letters_not_in_word << word_guessed[i]
       end
     when 'g'
-      game_state.letters_in_correct_position << {position: i, letter: word_guessed[i]}
+      # update the letters_in_correct_position hash using the position as the key and the letter as the value
+      game_state.letters_in_correct_position[i] = word_guessed[i]
     when 'y'
-      game_state.letters_in_wrong_position << {position: i, letter: word_guessed[i]}
+      # update the letters_in_wrong_position hash using the position as the key and adding the letter to the array if it is not already there
+      if !game_state.letters_in_wrong_position[i].include?(word_guessed[i])
+        game_state.letters_in_wrong_position[i] << word_guessed[i]
+      end
     end
   end
 
