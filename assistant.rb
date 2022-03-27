@@ -55,13 +55,6 @@ while !finished
     game_state.letters_in_correct_position.values.include?(letter) || game_state.letters_in_wrong_position.values.flatten.include?(letter)
   end
 
-  # print GameState
-  puts "Game State:"
-  puts "Words Guessed: #{game_state.words_guessed}"
-  puts "Letters in correct position: #{game_state.letters_in_correct_position}"
-  puts "Letters in wrong position: #{game_state.letters_in_wrong_position}"
-  puts "Letters not in word: #{game_state.letters_not_in_word}"
-
   # create a regex from letters_in_wrong_position with a '.' for any empty array, and joining the contents of any non-empty array and wrapping them inside square brackets
   filter_letters_in_wrong_position = game_state.letters_in_wrong_position.map do |position, letters|
     if letters.empty?
