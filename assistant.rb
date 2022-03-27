@@ -11,7 +11,7 @@ class GameState
 
   def initialize
     @words_guessed = []
-    @letters_in_correct_position = {0 => "", 1 => "", 2 => "", 3 => "", 4 => ""}
+    @letters_in_correct_position = {0 => ".", 1 => ".", 2 => ".", 3 => ".", 4 => "."}
     @letters_in_wrong_position = {0 => [], 1 => [], 2 => [], 3 => [], 4 => []}
     @letters_not_in_word = []
   end
@@ -59,7 +59,12 @@ while !finished
 
 
   puts "Here are the words that match your clues:"
-  puts words.select { |word| word.downcase.include?(word_guessed) }
+  # filter the dictionary to exclude words containing letters not in the word_guessed
+  filtered_words = words.select { |word| word[/[^#{game_state.letters_not_in_word.join}]/] }
+  # filter filtered_words to only include words that contain letters in the correct position
+  filtered_words = filtered_words.select { |word| word[/#{game_state.letters_in_correct_position.values.join}/] }
+
+  filtered_words.each { |word| puts word }
 
   puts "Do you want to guess another word? (y/n)"
   finished = gets.chomp.downcase == 'n'
