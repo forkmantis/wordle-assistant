@@ -76,6 +76,12 @@ while !finished
       word[/#{filter_letters_in_wrong_position}/]
   end
 
+  # Make sure filtered_words contains every unique letter in letters_in_wrong_position
+  letters_in_word = game_state.letters_in_wrong_position.values.flatten.uniq.join
+  letters_in_word.each_char do |letter|
+    filtered_words = filtered_words.grep(/#{letter}/)
+  end
+
   puts "Here are the words that match your clues:"
   filtered_words.each { |word| puts word }
 end  # end of while true
